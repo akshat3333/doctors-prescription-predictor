@@ -109,7 +109,7 @@ class App extends React.Component {
             </>
             <br />
               <input type="checkbox" className="hidden" value='OCR' name='OCR' id="ocr" onChange={e => this.handleRadio(e)} />
-              <label className={`ml-2 select-none shadow-xl px-3 py-1 bg-red-300 ${this.state.ocrEnabled && 'bg-green-300'} cursor-pointer my-5 transition`} htmlFor='ocr'>{this.state.ocrEnabled === true ? 'Hide' : 'Show'} Text</label>
+              <label className={`ml-2 select-none shadow-xl px-3 py-1 bg-red-300 ${!this.state.ocrEnabled && 'bg-green-300'} cursor-pointer my-5 transition`} htmlFor='ocr'>{this.state.ocrEnabled === true ? 'Hide' : 'Show'} Text</label>
             <div className={`submit-btn select-none bg-blue-300 hover:bg-green-300 px-3 py-1 cursor-pointer transition mt-5`} onClick={this.handleFileUpload}>
               {this.state.ocrRunning === true ? 'Running' : 'Run'}
             </div>

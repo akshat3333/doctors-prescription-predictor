@@ -106,7 +106,7 @@ class App extends React.Component {
               <label className="ml-2" htmlFor="OCR">Get Text</label>
             </div>
             <div className={`submit-btn bg-blue-300 hover:bg-green-300 px-3 py-1 cursor-pointer transition mt-5`} onClick={this.handleFileUpload}>
-              {this.state.ocrRunning == true ? 'Running' : 'Run'}
+              {this.state.ocrRunning === true ? 'Running' : 'Run'}
             </div>
           </div>
           {this.state.ocrEnabled && <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>

@@ -91,14 +91,15 @@ class App extends React.Component {
       <div className="App font-light flex flex-col items-center">
         <div className="app-header mt-10 text-3xl">CSD 300 Project</div>
         <div className="app-header mt-6 text-3xl">Doctor's Prescription Recognition System</div>
-        <div className="main-container w-[90%] flex justify-center gap-[200px] mt-20">
+        <div className="main-container w-[90%] flex justify-center gap-[200px] mt-10">
           <div className="input-container w-[40%] h-min-[500px] mt-20 flex flex-col justify-center items-center">
             <div className="og-img-container w-[300px]">
               {this.state.base64URL && <img src={this.state.base64URL} alt='Original Image' />}
             </div>
             <>
               <br />
-              <input className="w-[96px]" type="file" name="Image" onChange={this.handleFileInputChange} />
+              <input className="w-[96px] hidden" type="file" name="Image" id="img" onChange={this.handleFileInputChange} />
+              <label for="img" className="border bg-black text-white px-3 py-1 shadow-md hover:bg-red-300 transition hover:text-black cursor-pointer">Upload Prescription</label>
             </>
             <br />
             <div className="checkBox-container mt-5 border px-3 py-1 border-black">

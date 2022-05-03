@@ -8,7 +8,7 @@ class App extends React.Component {
     file: null,
     base64URL: "",
     ocrRunning: false,
-    ocrEnabled: false,
+    ocrEnabled: true,
     ocr: [],
     meds: [],
     neverRan: true
@@ -93,6 +93,11 @@ class App extends React.Component {
         <div className="app-header mt-10 text-3xl">CSD 300 Project</div>
         <div className="app-header mt-6 text-3xl">Doctor's Prescription Recognition System</div>
         <div className="main-container w-[90%] flex justify-center gap-[200px] mt-10">
+        {this.state.ocrEnabled && <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
+          {this.state.ocr.length !== 0 ? <div className="text-md mb-5">Detected Text</div> : <></>}
+            {this.state.ocrRunning && <InfinitySpin color="red" />}
+            {this.state.ocr.length !== 0 ? <div className="text-2xl">{this.state.ocr.map(ocr => <div className="ocr-name">{ocr.toLowerCase()}</div>)}</div> : <></>}
+          </div>}
           <div className="input-container w-[40%] h-min-[500px] mt-20 flex flex-col justify-center items-center">
             <div className="og-img-container w-[300px]">
               {this.state.base64URL && <img src={this.state.base64URL} alt='Original Image' className="shadow-xl" />}
@@ -111,12 +116,7 @@ class App extends React.Component {
               {this.state.ocrRunning === true ? 'Running' : 'Run'}
             </div>
           </div>
-          {this.state.ocrEnabled && <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
-          {this.state.ocr.length !== 0 ? <div className="text-md mb-5">Detected Text</div> : <></>}
-            {this.state.ocrRunning && <InfinitySpin color="red" />}
-            {this.state.ocr.length !== 0 ? <div className="text-2xl">{this.state.ocr.map(ocr => <div className="ocr-name">{ocr.toLowerCase()}</div>)}</div> : <></>}
-          </div>}
-          {!this.state.neverRan && <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
+          {<div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
           {this.state.ocr.length !== 0 ? this.state.meds.length !== 0 ? <div className="text-md mb-5">Medicines Found</div> : <>Medicines Not Found</> : ''}
             {this.state.ocrRunning && <InfinitySpin color="red" />}
             {!this.state.ocrRunning && this.state.meds.length !== 0 ? <div className="text-2xl">{this.state.meds.map((med, index) => <div className="med-name">{index+1}. {med.toLowerCase()}</div>)}</div> : <></>}

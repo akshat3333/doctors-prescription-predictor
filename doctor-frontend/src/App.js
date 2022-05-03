@@ -11,6 +11,7 @@ class App extends React.Component {
     ocrEnabled: false,
     ocr: [],
     meds: [],
+    neverRan: true
   };
 
   getBase64 = file => {
@@ -61,7 +62,7 @@ class App extends React.Component {
   };
 
   handleFileUpload = () => {
-    this.setState({ denoising: true })
+    this.setState({ denoising: true, neverRan: false })
     const data = {
       base64: this.state.base64URL
     }
@@ -94,7 +95,7 @@ class App extends React.Component {
         <div className="main-container w-[90%] flex justify-center gap-[200px] mt-10">
           <div className="input-container w-[40%] h-min-[500px] mt-20 flex flex-col justify-center items-center">
             <div className="og-img-container w-[300px]">
-              {this.state.base64URL && <img src={this.state.base64URL} alt='Original Image' />}
+              {this.state.base64URL && <img src={this.state.base64URL} alt='Original Image' className="shadow-xl" />}
             </div>
             <>
               <br />
@@ -104,7 +105,7 @@ class App extends React.Component {
             <br />
             <div className="checkBox-container mt-5 border px-3 py-1 border-black">
               <input type="checkbox" value='OCR' name='OCR' onChange={e => this.handleRadio(e)} />
-              <label className="ml-2" htmlFor="OCR">Get Text</label>
+              <label className="ml-2" htmlFor="OCR">Show Text</label>
             </div>
             <div className={`submit-btn bg-blue-300 hover:bg-green-300 px-3 py-1 cursor-pointer transition mt-5`} onClick={this.handleFileUpload}>
               {this.state.ocrRunning === true ? 'Running' : 'Run'}
@@ -115,11 +116,11 @@ class App extends React.Component {
             {this.state.ocrRunning && <InfinitySpin color="red" />}
             {this.state.ocr.length !== 0 ? <div className="text-2xl">{this.state.ocr.map(ocr => <div className="ocr-name">{ocr.toLowerCase()}</div>)}</div> : <></>}
           </div>}
-          <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
+          {!this.state.neverRan && <div className={`input-container w-[40%] overflow-y-scroll h-[300px] mt-20 flex flex-col items-center p-5 ${this.state.ocr.length === 0 ? '' : 'shadow-md'}`}>
           {this.state.ocr.length !== 0 ? this.state.meds.length !== 0 ? <div className="text-md mb-5">Medicines Found</div> : <>Medicines Not Found</> : ''}
             {this.state.ocrRunning && <InfinitySpin color="red" />}
             {!this.state.ocrRunning && this.state.meds.length !== 0 ? <div className="text-2xl">{this.state.meds.map((med, index) => <div className="med-name">{index+1}. {med.toLowerCase()}</div>)}</div> : <></>}
-          </div>
+          </div>}
         </div>
       </div>
     );
